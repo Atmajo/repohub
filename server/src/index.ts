@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import logger from "./logger/logger";
+import { indexRouter } from "./routers";
 
 // Load environment variables
 dotenv.config();
@@ -13,10 +14,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Routes
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server is running");
-});
+app.use("/", indexRouter);
 
 app.post("/api/repos", (req: Request, res: Response) => {
   const { name } = req.body;
