@@ -2,13 +2,11 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import logger from "./logger/logger";
 import { indexRouter } from "./routers";
-
-// Load environment variables
-dotenv.config();
+import { config } from "./config/config";
 
 // Create Express app
 const app: Express = express();
-const port = process.env.PORT || 3000;
+const port = config.port;
 
 // Middleware
 app.use(express.json());

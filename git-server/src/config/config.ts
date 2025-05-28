@@ -1,0 +1,6 @@
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig();
+
+export const config = {
+  port: process.env.PORT ? parseInt(process.env.PORT) : 7005,
+};

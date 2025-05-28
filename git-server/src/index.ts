@@ -1,11 +1,9 @@
 import { Git } from "node-git-server";
 import { join } from "path";
 import logger from "./logger/logger";
+import { config } from "./config/config";
 
-const port =
-  !process.env.PORT || isNaN(Number(process.env.PORT))
-    ? 7005
-    : parseInt(process.env.PORT);
+const port = config.port;
 
 const repos = new Git(join(__dirname, "../repos"), {
   autoCreate: true,
