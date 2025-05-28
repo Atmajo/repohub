@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import logger from "../../../logger/logger";
-import { prisma } from "../../../lib/prisma";
+import logger from "../../logger/logger";
+import { prisma } from "../../lib/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
