@@ -32,13 +32,14 @@ export const verifyToken = (
       res.status(401).json({ error: "Unauthorized" });
       return;
     }
-    
+
     if (decoded.exp < Math.floor(Date.now() / 1000)) {
       res.status(401).json({ error: "Token expired" });
       return;
     }
 
     req.user = decoded;
+
     next();
   } catch (error) {
     res.status(401).json({ error: "Unauthorized" });

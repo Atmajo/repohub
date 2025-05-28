@@ -1,9 +1,8 @@
-import { Request, Response, Router } from "express";
-import { register } from "../controllers/apis/auth/register";
-import { login } from "../controllers/apis/auth/login";
-import { AuthenticatedRequest } from "../middlewares/token";
+import { Router } from "express";
+import { repositoriesRouter } from "./repositories.router";
 
 const router = Router();
 
+router.use("/repositories", repositoriesRouter);
 
 export { router as apisRouter };
