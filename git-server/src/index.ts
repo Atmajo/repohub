@@ -1,7 +1,9 @@
 import { Git } from "node-git-server";
 import { join } from "path";
-import logger from "./logger/logger";
 import { config } from "./config/config";
+import logger from "./logger/logger";
+import bcrypt from "bcrypt";
+import { prisma } from "./lib/prisma";
 
 const port = config.port;
 
@@ -9,8 +11,24 @@ const repos = new Git(join(__dirname, "../repos"), {
   autoCreate: true,
   authenticate: ({ type, user }, next) =>
     type == "push"
-      ? user((username, password) => {
-          logger.info(username!, password!);
+      ? user(async (username, password) => {
+          if (!username || !password) {
+            return next(new Error("Username and password are required"));
+          }
+
+          const user = await prisma.user.findUnique({
+            where: { email: username },
+          });
+
+          if (!user) {
+            return next(new Error("User not found"));
+          }
+
+          const isPasswordValid = await bcrypt.compare(password, user.password);
+          if (!isPasswordValid) {
+            return next(new Error("Invalid password"));
+          }
+
           next();
         })
       : next(),

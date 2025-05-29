@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { config } from "../config/config";
 import jwt from "jsonwebtoken";
 
 export interface AuthenticatedRequest extends Request {
@@ -21,7 +22,7 @@ export const verifyToken = (
       return;
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
+    const decoded = jwt.verify(token, config.jwtsecret) as {
       id: string;
       email: string;
       iat: number;

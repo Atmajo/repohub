@@ -3,3 +3,4 @@ logs
 repos
 dist
 .env
+/src/generated/prisma

@@ -3,6 +3,7 @@ import logger from "../../logger/logger";
 import { prisma } from "../../lib/prisma";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { config } from "../../config/config";
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -32,7 +33,7 @@ export const login = async (req: Request, res: Response) => {
       email: user.email,
     };
 
-    const token = jwt.sign(payload, process.env.JWT_SECRET!, {
+    const token = jwt.sign(payload, config.jwtsecret, {
       expiresIn: "30d",
     });
 

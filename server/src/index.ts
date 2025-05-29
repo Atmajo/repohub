@@ -1,8 +1,10 @@
+// Register module aliases first
+import './config/module-alias';
+
 import express, { Express, Request, Response } from "express";
-import dotenv from "dotenv";
-import logger from "./logger/logger";
 import { indexRouter } from "./routers";
 import { config } from "./config/config";
+import logger from "./logger/logger";
 
 // Create Express app
 const app: Express = express();

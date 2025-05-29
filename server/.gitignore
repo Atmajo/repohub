@@ -4,3 +4,4 @@ repos
 dist
 .env
 /src/generated/prisma
+uploads
