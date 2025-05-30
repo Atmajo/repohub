@@ -22,7 +22,7 @@ model User {
 
 model Repository {
   id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
+  name        String  @unique
   description String?
   url         String
 

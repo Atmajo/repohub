@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
 import { AuthenticatedRequest } from "../../middlewares/token";
 import { prisma } from "../../lib/prisma";
+import { listFilesInRepo } from "@/src/lib/listFilesInRepo";
+import { join } from "path";
 import logger from "../../logger/logger";
 
 export const getRepositories = async (
@@ -46,7 +48,13 @@ export const getRepository = async (
       return;
     }
 
-    res.status(200).json({ repository });
+    const repoPath = join(__dirname, "../../../../" + repository.name);
+    console.log(`Repository path: ${repoPath}`);
+
+    // Ensure the path is correct and accessible
+    const { files, commit } = await listFilesInRepo(repoPath);
+
+    res.status(200).json({ files, commit, repository });
   } catch (error) {
     logger.error(`Error in getRepository API: ${error}`);
     res.status(500).json({ error: "Internal Server Error" });

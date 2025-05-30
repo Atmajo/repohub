@@ -31,6 +31,7 @@ export const login = async (req: Request, res: Response) => {
     const payload = {
       id: user.id,
       email: user.email,
+      username: user.name,
     };
 
     const token = jwt.sign(payload, config.jwtsecret, {

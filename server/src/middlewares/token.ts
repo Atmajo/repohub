@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 export interface AuthenticatedRequest extends Request {
   user?: {
     id: string;
+    username: string;
     email: string;
   };
 }
@@ -24,11 +25,12 @@ export const verifyToken = (
 
     const decoded = jwt.verify(token, config.jwtsecret) as {
       id: string;
+      username: string;
       email: string;
       iat: number;
       exp: number;
     };
-
+    
     if (!decoded) {
       res.status(401).json({ error: "Unauthorized" });
       return;
