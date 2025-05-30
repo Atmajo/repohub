@@ -1,6 +1,5 @@
 node_modules
 logs
-repos
 dist
 .env
-/src/generated/prisma
+src/generated/

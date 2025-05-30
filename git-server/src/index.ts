@@ -7,7 +7,7 @@ import { prisma } from "./lib/prisma";
 
 const port = config.port;
 
-const repos = new Git(join(__dirname, "../repos"), {
+const repos = new Git(join(__dirname, "../../repos"), {
   autoCreate: true,
   authenticate: ({ type, user }, next) =>
     type == "push"

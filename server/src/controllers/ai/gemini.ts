@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import logger from "../../logger/logger";
 import { fileResponse, testResponse } from "../../lib/gemini";
+import logger from "../../logger/logger";
+import * as fs from "fs";
 
 export const geminiTextResponse = async (req: Request, res: Response) => {
   try {
@@ -46,6 +47,15 @@ export const geminiFileResponse = async (req: Request, res: Response) => {
       res.status(500).json({ error: result.error });
       return;
     }
+
+    files.forEach((file) => {
+      fs.unlink(file.path, (err) => {
+        if (err) {
+          logger.error(`Error deleting temporary file: ${file.path}`, err);
+          return;
+        }
+      });
+    });
 
     logger.info("Gemini AI file response generated successfully");
     res.status(200).json({ data: result.text });

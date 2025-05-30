@@ -16,21 +16,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/", indexRouter);
 
-app.post("/api/repos", (req: Request, res: Response) => {
-  const { name } = req.body;
-
-  if (!name) {
-    logger.error("Repo name is required");
-    res.status(400).json({ error: "Repo name is required" });
-    return;
-  }
-  
-  logger.info(`Repo name stored: ${name}`);
-  
-  res.status(201).json({ message: "Repo registered" });
-});
-
-// Redirect Git CLI requests to Git server
 app.get("/git/{*path}", (req: Request, res: Response) => {
   try {
     const path = req.originalUrl;
